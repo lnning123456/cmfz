@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDao">
+    <select id="findPage" resultType="Album">
+      select id , title,grade,author,announcer,chapter_number  chapterNumber,
+     album_brief albumBrief, status,issue_date AS issueDate,upload_time AS uploadTime,
+     illustration
+      from album  limit #{start},#{rows}
+
+    </select>
+    <insert id="add">
+     insert into album values(#{id},#{title},#{grade},
+     #{author},#{announcer},#{chapterNumber},#{albumBrief},#{status}
+     ,#{issueDate},#{uploadTime},#{illustration})
+    </insert>
+
+    <delete id="delete" parameterType="String">
+        delete from album where id in
+        <foreach collection="array" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
