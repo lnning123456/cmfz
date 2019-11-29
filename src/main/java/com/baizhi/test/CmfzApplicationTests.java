@@ -355,7 +355,11 @@ public class CmfzApplicationTests {
 
     @Test
     public void userAddress() {
-        userService.findAddressNumber();
+        Map<String, Map<String, Integer>> addressNumber = userService.findAddressNumber();
+        for (String s : addressNumber.keySet()) {
+            System.out.println("s = " + s);
+
+        }
     }
 
     @Test
