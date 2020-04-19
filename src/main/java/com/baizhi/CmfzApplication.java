@@ -1,5 +1,6 @@
 package com.baizhi;
 
+import org.assertj.core.util.Compatibility;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +17,7 @@ CmfzApplication {
         //  HttpSession session = null;
         //   session.setAttribute("esState","start");
 
-        System.setProperty("es.set.netty.runtime.available.processors", "false");
+      //  Compatibility.System.setProperty("es.set.netty.runtime.available.processors", "false");
 
         SpringApplication.run(CmfzApplication.class, args);
     }

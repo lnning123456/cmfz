@@ -241,14 +241,13 @@ public class CmfzApplicationTests {
         TransportClient transportClient = new PreBuiltTransportClient(Settings.EMPTY).addTransportAddress(new TransportAddress(InetAddress.getByName("192.168.152.131"), 9300));
         HighlightBuilder highlightBuilder = new HighlightBuilder();
         highlightBuilder.requireFieldMatch(false).preTags("<font color='red'>").postTags("</font>").field("*");
-        List<Map> list = new ArrayList<>();
-        QueryStringQueryBuilder queryStringQueryBuilder = QueryBuilders.queryStringQuery("s")
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        QueryStringQueryBuilder queryStringQueryBuilder = QueryBuilders.queryStringQuery(query)
                 .field("标题")
                 .field("状态")
                 .field("简介");
         SearchResponse searchResponse = transportClient.prepareSearch("banners")
                 .setTypes("banner")
-
                 .setQuery(queryStringQueryBuilder)
                 .highlighter(highlightBuilder)
                 .get();
@@ -256,16 +255,15 @@ public class CmfzApplicationTests {
         for (SearchHit hit : hits) {
             Map<String, HighlightField> highlightFields = hit.getHighlightFields();
             Map<String, Object> sourceAsMap = hit.getSourceAsMap();
-
-            for (String key : highlightFields.keySet()) {
-                sourceAsMap.put(key, highlightFields.get(key).getFragments()[0].toString());
+            for (String s : highlightFields.keySet()) {
+                System.out.println("s = " + s);
             }
 
 
             list.add(sourceAsMap);
         }
         System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzz");
-        for (Map map : list) {
+        for (Map<String, Object> map : list) {
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxx");
             System.out.println("map = " + map);
 
@@ -275,7 +273,7 @@ public class CmfzApplicationTests {
     @Test
     public void dingshi() {
         Timer timer = new Timer();
-        Espository espository = new Espository();
+        //  Espository espository = new Espository();
         MyTask myTask = new MyTask();
         timer.schedule(myTask, 1000, 2000);
     }
@@ -311,7 +309,7 @@ public class CmfzApplicationTests {
     }
 
     @Test
-    public void find() throws IOException {
+    public void find() {
 
         List<Map> search = espository.search("第一");
         System.out.println("search = " + search);
@@ -328,7 +326,7 @@ public class CmfzApplicationTests {
     @Test
     public void testUser() {
         List<User> users = userService.findAll();
-        Integer count = 1;
+        int count = 1;
         for (User user : users) {
             if (user.getAddress().equals("天津")) {
                 ++count;

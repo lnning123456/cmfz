@@ -2,6 +2,7 @@ package com.baizhi.controller;
 
 import com.baizhi.entity.Album;
 import com.baizhi.service.AlbumService;
+import org.assertj.core.util.Compatibility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,7 @@ public class AlbumController {
             return albumId;
         }
         if (oper.equals("edit")) {
-            System.out.println("edit");
+          //  Compatibility.System.out.println("edit");
         }
         if (oper.equals("del")) {
             albumService.del(id);
